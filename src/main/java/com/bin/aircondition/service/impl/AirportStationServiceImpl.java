@@ -3,8 +3,9 @@ package com.bin.aircondition.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bin.aircondition.entity.Airport;
-import com.bin.aircondition.mapper.AirportMapper;
-import com.bin.aircondition.service.AirportService;
+import com.bin.aircondition.entity.AirportStation;
+import com.bin.aircondition.mapper.AirportStationMapper;
+import com.bin.aircondition.service.AirportStationService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.bin.aircondition.vo.CommonQueryVo;
 import org.springframework.stereotype.Service;
@@ -23,30 +24,29 @@ import java.util.Map;
  * @since 2020-10-27
  */
 @Service
-public class AirportServiceImpl extends ServiceImpl<AirportMapper, Airport> implements AirportService {
+public class AirportStationServiceImpl extends ServiceImpl<AirportStationMapper, AirportStation> implements AirportStationService {
 
-    //分页查询机场
+    //分页查询所有廊道信息
     @Override
-    public Map<String, Object> getPageAirport(Long current, Long limit) {
+    public Map<String, Object> getPageAirportStation(Long current, Long limit) {
 
-        Page<Airport> airportPage = new Page<>(current, limit);
-        QueryWrapper<Airport> wrapper = new QueryWrapper<>();
+        Page<AirportStation> galleryPage = new Page<>(current, limit);
+        QueryWrapper<AirportStation> wrapper = new QueryWrapper<>();
         wrapper.orderByDesc("gmt_create");
 
-        this.page(airportPage, wrapper);
-        List<Airport> records = airportPage.getRecords();
-        long total = airportPage.getTotal();
+        this.page(galleryPage, wrapper);
+        List<AirportStation> records = galleryPage.getRecords();
+        long total = galleryPage.getTotal();
         HashMap<String, Object> map = new HashMap<>();
-        map.put("airportList", records);
+        map.put("stationList", records);
         map.put("total", total);
         return map;
     }
 
     @Override
-    public Map<String, Object> getPageAirportByCondition(Long current, Long limit, CommonQueryVo queryVo) {
-
-        Page<Airport> page = new Page<>(current, limit);
-        QueryWrapper<Airport> wrapper = new QueryWrapper<>();
+    public Map<String, Object> getPageStationByCondition(Long current, Long limit, CommonQueryVo queryVo) {
+        Page<AirportStation> page = new Page<>(current, limit);
+        QueryWrapper<AirportStation> wrapper = new QueryWrapper<>();
         String key = queryVo.getKey();
         String begin = queryVo.getBegin();
         String end = queryVo.getEnd();
@@ -63,7 +63,7 @@ public class AirportServiceImpl extends ServiceImpl<AirportMapper, Airport> impl
             wrapper.le("gmt_create", end);
         }
         this.page(page, wrapper);
-        List<Airport> records = page.getRecords();
+        List<AirportStation> records = page.getRecords();
         long total = page.getTotal();
         long size = page.getSize();
 

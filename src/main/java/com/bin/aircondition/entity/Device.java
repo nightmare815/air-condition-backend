@@ -47,8 +47,11 @@ public class Device implements Serializable {
     @ApiModelProperty(value = "设备所属机场")
     private String airportId;
 
-    @ApiModelProperty(value = "设备所属廊道")
-    private String galleryId;
+    @ApiModelProperty(value = "设备所属航站楼")
+    private String stationId;
+
+    @ApiModelProperty(value = "设备所属登机桥")
+    private String bridgeId;
 
     @TableField(fill = FieldFill.INSERT)
     @ApiModelProperty(value = "设备注册时间")

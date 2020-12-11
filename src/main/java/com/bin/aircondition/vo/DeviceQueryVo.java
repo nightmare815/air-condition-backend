@@ -9,7 +9,9 @@ public class DeviceQueryVo {
 
     private String airport;
 
-    private String gallery;
+    private String station;
+
+    private String bridge;
 
     private String deviceId;
 

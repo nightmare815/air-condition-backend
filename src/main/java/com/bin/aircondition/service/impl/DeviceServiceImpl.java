@@ -49,15 +49,19 @@ public class DeviceServiceImpl extends ServiceImpl<DeviceMapper, Device> impleme
         //创建查询wrapper
         QueryWrapper<Device> wrapper = new QueryWrapper<>();
         String airport = deviceQueryVo.getAirport();
-        String gallery = deviceQueryVo.getGallery();
+        String station = deviceQueryVo.getStation();
+        String bridge = deviceQueryVo.getBridge();
         String deviceId = deviceQueryVo.getDeviceId();
         String begin = deviceQueryVo.getBegin();
         String end = deviceQueryVo.getEnd();
         if (!StringUtils.isEmpty(airport)) {
             wrapper.eq("airport_id", airport);
         }
-        if (!StringUtils.isEmpty(gallery)) {
-            wrapper.eq("gallery_id", gallery);
+        if (!StringUtils.isEmpty(station)) {
+            wrapper.eq("station_id", station);
+        }
+        if (!StringUtils.isEmpty(bridge)) {
+            wrapper.eq("bridge_id", bridge);
         }
         if (!StringUtils.isEmpty(deviceId)) {
             wrapper.eq("device_id", deviceId);

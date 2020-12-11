@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.bin.aircondition.commonutils.Result;
 import com.bin.aircondition.entity.Airport;
 import com.bin.aircondition.service.AirportService;
+import com.bin.aircondition.vo.CommonQueryVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -69,8 +70,14 @@ public class AirportController {
     //分页查询所有机场信息
     @GetMapping("getPageAirport/{current}/{limit}")
     public Result getPageAirport(@PathVariable Long current, @PathVariable Long limit) {
-        System.out.println("current: " + current + ", limit: " + limit);
         Map<String, Object> map = airportService.getPageAirport(current, limit);
+        return Result.ok().data(map);
+    }
+
+    //条件分页查询所有机场信息
+    @PostMapping("getPageAirportByCondition/{current}/{limit}")
+    public Result getPageAirportByCondition(@PathVariable Long current, @PathVariable Long limit, @RequestBody CommonQueryVo queryVo) {
+        Map<String, Object> map = airportService.getPageAirportByCondition(current, limit, queryVo);
         return Result.ok().data(map);
     }
 }

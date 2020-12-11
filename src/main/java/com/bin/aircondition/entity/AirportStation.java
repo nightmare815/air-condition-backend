@@ -22,34 +22,36 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@ApiModel(value="Airport对象", description="")
-public class Airport implements Serializable {
+@ApiModel(value="Gallery对象", description="")
+public class AirportStation implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "机场id")
+    @ApiModelProperty(value = "航站楼id")
     @TableId(value = "id", type = IdType.ID_WORKER_STR)
     private String id;
 
-    @ApiModelProperty(value = "机场名称")
+    @ApiModelProperty(value = "航站楼名称")
     private String name;
 
-    @ApiModelProperty(value = "机场添加者")
+    @ApiModelProperty(value = "所属机场id")
+    private String airportId;
+
+    @ApiModelProperty(value = "航站楼添加者")
     private String addBy;
 
     @TableField(fill = FieldFill.INSERT)
-    @ApiModelProperty(value = "机场添加时间")
+    @ApiModelProperty(value = "航站楼添加时间")
     private Date gmtCreate;
 
     @TableField(fill = FieldFill.INSERT_UPDATE)
-    @ApiModelProperty(value = "机场修改时间")
+    @ApiModelProperty(value = "航站楼修改时间")
     private Date gmtModified;
 
     @TableLogic
-    @ApiModelProperty(value = "机场是否被删除,0未删除,1已删除")
-    private Integer isDeleted;
+    @ApiModelProperty(value = "航站楼是否被删除")
+    private Boolean isDeleted;
 
     @TableField(exist = false)
-    private List<AirportStation> children;
-
+    private List<AirportBridge> children;
 }

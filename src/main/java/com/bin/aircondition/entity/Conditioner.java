@@ -35,9 +35,6 @@ public class Conditioner implements Serializable {
     @ApiModelProperty(value = "对应设备id")
     private String deviceId;
 
-    @ApiModelProperty(value = "空调添加者")
-    private String addBy;
-
     @ApiModelProperty(value = "当前温度")
     private String temperature;	    //温度
 

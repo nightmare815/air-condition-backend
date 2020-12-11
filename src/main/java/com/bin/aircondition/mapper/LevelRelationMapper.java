@@ -1,6 +1,6 @@
 package com.bin.aircondition.mapper;
 
-import com.bin.aircondition.entity.Gallery;
+import com.bin.aircondition.entity.LevelRelation;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author bintian
- * @since 2020-10-27
+ * @since 2020-11-24
  */
-public interface GalleryMapper extends BaseMapper<Gallery> {
+public interface LevelRelationMapper extends BaseMapper<LevelRelation> {
 
 }

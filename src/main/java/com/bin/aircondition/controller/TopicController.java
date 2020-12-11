@@ -31,7 +31,6 @@ public class TopicController {
     @PostMapping("addTopic")
     public Result addTopic(@RequestBody Topic topic) {
         Boolean isSuccess = topicService.save(topic);
-        if(!isSuccess) return Result.error().message("添加主题失败");
         return Result.ok();
     }
 

@@ -9,11 +9,15 @@ import com.bin.aircondition.service.DeviceService;
 import com.bin.aircondition.service.MsgSendService;
 import com.bin.aircondition.service.TopicService;
 import com.bin.aircondition.vo.ConditionStatusVo;
+import com.bin.aircondition.vo.MessageQueryVo;
+import com.mysql.cj.protocol.MessageSender;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -56,6 +60,32 @@ public class MsgSendController {
         wrapper.orderByDesc("gmt_create");
         List<MsgSend> msgSendList = msgSendService.list(wrapper);
         return Result.ok().data("msgSendList", msgSendList);
+    }
+
+    //分页获取某个设备的历史修改记录
+    @GetMapping("getPageHistoryData/{deviceId}/{current}/{limit}")
+    public Result getPageHistoryData(@PathVariable String deviceId, @PathVariable Long current, @PathVariable Long limit) {
+
+        Map<String, Object> map = msgSendService.getPageHistoryData(deviceId, current, limit);
+        return Result.ok().data(map);
+    }
+
+    //条件分页获取某个设备的历史修改记录
+    @PostMapping("getPageHistoryDataByCondition/{deviceId}/{current}/{limit}")
+    public Result getPageHistoryDataByCondition(@PathVariable String deviceId, @PathVariable Long current, @PathVariable Long limit, @RequestBody MessageQueryVo messageQueryVo) {
+
+        Map<String, Object> map = msgSendService.getPageHistoryDataByCondition(deviceId, current, limit, messageQueryVo);
+        return Result.ok().data(map);
+    }
+
+    //批量删除历史修改记录
+    @PostMapping("deleteBatchHistoryData")
+    public Result deleteBatchHistoryData(@RequestBody List<MsgSend> msgSends) {
+        List<String> collect = msgSends.stream().map(item -> {
+            return item.getId();
+        }).collect(Collectors.toList());
+        msgSendService.removeByIds(collect);
+        return Result.ok();
     }
 
 }

@@ -5,11 +5,13 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bin.aircondition.commonutils.Result;
 import com.bin.aircondition.entity.Device;
+import com.bin.aircondition.exceptionhandler.MyException;
 import com.bin.aircondition.service.DeviceService;
 import com.bin.aircondition.vo.DeviceQueryVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,6 +45,18 @@ public class DeviceController {
         return Result.ok().data("deviceList", deviceList);
     }
 
+    //获取单个设备信息
+    @GetMapping("getDeviceById/{deviceId}")
+    public Result getDeviceById(@PathVariable String deviceId) {
+
+        QueryWrapper<Device> wrapper = new QueryWrapper<>();
+        wrapper.eq("device_id", deviceId);
+        Device device = deviceService.getOne(wrapper);
+        List<Device> devices = new ArrayList<>();
+        devices.add(device);
+        return Result.ok().data("device", devices);
+    }
+
     //分页查询
     @GetMapping("getPageDevice/{current}/{limit}")
     public Result getPageDevice(@PathVariable Long current, @PathVariable Long limit) {
@@ -68,14 +82,14 @@ public class DeviceController {
         }
         return Result.ok();
     }
-    //添加设备
+    //添加设备, 同时添加topic
     @PostMapping("addDevice")
     public Result addDevice(@RequestBody Device device) {
-        boolean save = deviceService.save(device);
-        if(!save) {
-            return Result.error().message("添加设备失败!");
+        Device device1 = deviceService.getOne(new QueryWrapper<Device>().eq("device_id", device.getDeviceId()));
+        if(device1 == null) {
+            boolean save = deviceService.save(device);
         }
-        return Result.ok().message("添加成功");
+        return Result.ok();
     }
 }
 

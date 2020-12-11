@@ -24,6 +24,9 @@ public class MessageListenerConfig {
     @Value("${myrabbitmq.queue.receiver}")
     private String receiveQueue;
 
+    @Value("${myrabbitmq.queue.receiver-gate}")
+    private String receiveGateQueue;
+
     @Value("${myrabbitmq.queue.register}")
     private String registerQueue;
 
@@ -34,7 +37,7 @@ public class MessageListenerConfig {
         container.setMaxConcurrentConsumers(1);
         container.setAcknowledgeMode(AcknowledgeMode.MANUAL); // RabbitMQ默认是自动确认，这里改为手动确认消息
         //设置一个队列
-        container.setQueueNames(receiveQueue, registerQueue);  //用来接收空调状态消息的队列, 和接收注册信息的队列
+        container.setQueueNames(receiveQueue, registerQueue, receiveGateQueue);  //用来接收空调状态消息的队列, 和接收注册信息的队列
         //如果同时设置多个如下： 前提是队列都是必须已经创建存在的
         //  container.setQueueNames("TestDirectQueue","TestDirectQueue2","TestDirectQueue3");
         container.setMessageListener(myAckReceiver);

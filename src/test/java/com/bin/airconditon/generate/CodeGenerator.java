@@ -26,7 +26,7 @@ public class CodeGenerator {
         // 2、全局配置
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir");
-        gc.setOutputDir("E:\\WorkSpace\\idea\\air-condition" + "/src/main/java");
+        gc.setOutputDir("F:\\intelliJ IDEA\\WorkSpace04\\idea\\air-condition" + "/src/main/java");
         gc.setAuthor("bintian");
         gc.setOpen(false); //生成后是否打开资源管理器
         gc.setFileOverride(false); //重新生成时文件是否覆盖
@@ -39,10 +39,10 @@ public class CodeGenerator {
 
         // 3、数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://localhost:3306/air_conditioner?serverTimezone=GMT%2B8");
+        dsc.setUrl("jdbc:mysql://121.40.33.108:3306/air_conditioner?serverTimezone=GMT%2B8&characterEncoding=utf-8&useUnicode=true");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
-        dsc.setPassword("bintian");
+        dsc.setPassword("tian411328");
         dsc.setDbType(DbType.MYSQL);
         mpg.setDataSource(dsc);
 
@@ -59,7 +59,7 @@ public class CodeGenerator {
 
         // 5、策略配置
         StrategyConfig strategy = new StrategyConfig();
-        strategy.setInclude("condition");
+        strategy.setInclude("level_relation");
         strategy.setNaming(NamingStrategy.underline_to_camel);//数据库表映射到实体的命名策略
         strategy.setTablePrefix(pc.getModuleName() + "_"); //生成实体时去掉表前缀
 
